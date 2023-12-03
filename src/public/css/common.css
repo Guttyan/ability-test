@@ -1,0 +1,32 @@
+*{
+    color:#8B7969;
+    font-family: 'Indie Flower', cursive;
+    font-family: 'Inika', serif;
+}
+
+a{
+    cursor:pointer;
+}
+
+
+.header{
+    border-bottom:1px solid #E0DFDE;
+    height:100px;
+    position:relative;
+}
+
+.header-utilities {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    margin: 0 auto;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 40px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
