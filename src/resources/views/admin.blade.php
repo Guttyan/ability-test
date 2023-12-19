@@ -8,7 +8,7 @@
 <nav>
     <form action="/logout" class="form__logout" method="POST">
     @csrf
-        <button class="header-nav__button">logout</button>
+        <button class="header-nav__button" type="submit">logout</button>
     </form>
 </nav>
 @endsection
@@ -24,7 +24,7 @@
         <form action="/admin/search" class="search-form" method="GET">
             @csrf
             <div class="search-form__text">
-                <input type="text" class="search-form__text-input search-selection" placeholder="名前やメールアドレスを入力してください" name="keyword" calue="{{ old('keyword') }}">
+                <input type="text" class="search-form__text-input search-selection" placeholder="名前やメールアドレスを入力してください" name="keyword" value="{{ old('keyword') }}">
                 <button class="search-form__button" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
             <div class="search-form__gender">
@@ -49,47 +49,50 @@
         </form>
 
         <div class="sub-utilities">
-            <div class="export">
-                <button class="export__button">エクスポート</button>
-            </div>
             <div class="paginate">
-                {{ $contacts->links() }}
+                {{-- {{ $contacts->links() }} --}}
             </div>
         </div>
 
-        <table class="admin-table">
-            <tr class="admin-table__row-header">
-                <th>お名前</th>
-                <th>性別</th>
-                <th>メールアドレス</th>
-                <th>お問い合わせの種類</th>
-                <th></th>
-            </tr>
-            @foreach($contacts as $contact)
-                <tr class="admin-table__row-inner">
-                    <td>{{ $contact['last_name'] . '　' . $contact['first_name'] }}</td>
-                    <td>
-                        <input type="hidden" name="gender" value="{{ $contact['gender'] }}">
-                        <?php
-                        if($contact['gender'] == '1'){
-                            echo '男性';
-                        }else if($contact['gender'] == '2'){
-                            echo '女性';
-                        }else if($contact['gender'] == '3'){
-                            echo 'その他';
-                        }
-                        ?>
-                    </td>
-                    <td>{{ $contact['email'] }}</td>
-                    <td>{{ $contact['category']['content'] }}</td>
-                    <td>
-                        <div class="detail__button">
-                            <a href="#modal_{{ $contact['id'] }}">詳細</a>
-                        </div>
-                    </td>
+        <form action="/admin/csv_download" class="admin-list" method="get">
+            @csrf
+            <input type="hidden" name="keyword" value="{{ request()->query('keyword') }}">
+            <input type="hidden" name="gender" value="{{ request()->query('gender') }}">
+            <input type="hidden" name="category_id" value="{{ request()->query('category_id') }}">
+            <table class="admin-table">
+                <tr class="admin-table__row-header">
+                    <th>お名前</th>
+                    <th>性別</th>
+                    <th>メールアドレス</th>
+                    <th>お問い合わせの種類</th>
+                    <th></th>
                 </tr>
-            @endforeach
-        </table>
+                @foreach($contacts as $contact)
+                    <tr class="admin-table__row-inner">
+                        <td>{{ $contact['last_name'] . '　' . $contact['first_name'] }}</td>
+                        <td>
+                            <?php
+                            if($contact['gender'] == '1'){
+                                echo '男性';
+                            }else if($contact['gender'] == '2'){
+                                echo '女性';
+                            }else if($contact['gender'] == '3'){
+                                echo 'その他';
+                            }
+                            ?>
+                        </td>
+                        <td>{{ $contact['email'] }}</td>
+                        <td>{{ $contact['category']['content'] }}</td>
+                        <td>
+                            <div class="detail__button">
+                                <a href="#modal_{{ $contact['id'] }}">詳細</a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+            <button class="export__button">エクスポート</button>
+        </form>
 
         <div class="reset">
             <a href="/admin" class="reset__button">リセット</a>
