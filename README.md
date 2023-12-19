@@ -1,23 +1,17 @@
 # ability-test
 
 ## 環境構築
-1. docker-compose up -d --build
-2. docker-compose exec php bash
-3. composer create-project "laravel/laravel=8.*" . --prefer-dist
-4. php artisan make:controller ContactController
-5. php artisan make:migration create_contacts_table`
-6. php artisan migrate
-7. php artisan make:model Contact
-8. php artisan make:request ContactRequest
-9. php artisan make:migration
-10. create_categories_table
-11. php artisan migrate:fresh
-12. php artisan make:model Category
-13. php artisan make:seeder CategoriesTableSeeder
-14. php artisan db:seed
-15. php artisan make:factory ContactFactory
-16. php artisan make:seeder ContactsTableSeeder
-17. php artisan db:seed
+Dockerビルド  
+ 1.git clone https://github.com/Guttyan/ability-test.git  
+ 2.docker-compose up -d --build
+
+Laravel環境構築
+1. docker-compose exec php bash
+2. composer install
+3. .env.exampleファイルから.envを作成し、環境変数を変更
+4. php key:generate
+5. php artisan migrate
+6. php artisan db:seed
 
 ## 使用技術
 * Laravel 8.83.27
