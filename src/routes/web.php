@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CsvDownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,12 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', [ContactController::class, 'index']);
-Route::post('confirm', [ContactController::class, 'confirm']);
+Route::post('/confirm', [ContactController::class, 'confirm']);
 Route::post('/', [ContactController::class, 'store']);
-Route::get('/admin', [ContactController::class, 'admin']);
+// Route::get('/admin', [ContactController::class, 'admin']);
 Route::delete('/admin/delete', [ContactController::class, 'destroy']);
 Route::get('/admin/search', [ContactController::class, 'search']);
+Route::get('/admin/csv_download', [CsvDownloadController::class, 'downloadCsv']);
 Route::middleware('auth')->group(function(){
-    Route::get('/',[AuthController::class, 'index']);
+    Route::get('/admin',[AuthController::class, 'admin']);
 });

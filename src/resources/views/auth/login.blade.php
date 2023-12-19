@@ -6,10 +6,9 @@
 
 @section('nav')
 <nav>
-    <form action="/register" class="form__logout" method="POST">
-    @csrf
-        <button class="header-nav__button">Register</button>
-    </form>
+    <div class="form__register">
+        <a href="/register" class="header-nav__button">Register</a>
+    </div>
 </nav>
 @endsection
 
@@ -41,7 +40,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="password" value="{{ old('password') }}" placeholder="例:coachtech1106">
+                    <input type="password" name="password" value="{{ old('password') }}" placeholder="例:coachtech1106">
                 </div>
                 <div class="form__error">
                     @error('password')

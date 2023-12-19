@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\Category;
 use App\Http\Requests\ContactRequest;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ContactController extends Controller
 {
@@ -33,11 +34,6 @@ class ContactController extends Controller
         return view('thanks');
     }
 
-    public function admin(){
-        $contacts = Contact::with('category')->simplePaginate(10);
-        $categories = Category::all();
-        return view ('admin', compact('contacts', 'categories'));
-    }
 
     public function destroy(Request $request){
         Contact::find($request->id)->delete();
@@ -45,9 +41,10 @@ class ContactController extends Controller
     }
 
     public function search(Request $request){
-        $contacts = Contact::with('category')->FirstNameSearch($request->keyword)->LastNameSearch($request->keyword)->EmailSearch($request->keyword)->GenderSearch($request->gender)->CategorySearch($request->category_id)->CreatedSearch($request->created_at)->get();
+        $contacts = Contact::with('category')->KeywordSearch($request->keyword)->GenderSearch($request->gender)->CategorySearch($request->category_id)->CreatedSearch($request->created_at)->get();
         $categories = Category::all();
         return view('admin', compact('contacts', 'categories'));
     }
+
 }
 

@@ -105,20 +105,28 @@ nav{
 .sub-utilities{
     margin-top:50px;
     margin-bottom:30px;
-    display:flex;
-    justify-content: space-between;
+    text-align:right;
+}
+
+.admin-list{
+    position:relative;
 }
 
 .export__button{
+    position:absolute;
+    top:-50px;
+    left:0;
     width:100px;
     border:none;
     background:#E1DBD699;
     height:25px;
+    cursor:pointer;
 }
 
 .paginate{
     width:100px;
     border: 1px solid #D9C6B5;
+    display:inline-block;
 }
 
 .admin-table{
